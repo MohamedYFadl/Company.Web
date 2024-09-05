@@ -2,6 +2,7 @@
 using Company.Repository.Interfaces;
 using Company.Service._Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Company.Web.Controllers
 {
@@ -27,7 +28,15 @@ namespace Company.Web.Controllers
         public IActionResult Create(Department dept) {
 
             _departmentService.Add(dept);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _departmentService.Add(dept);
+                return RedirectToAction("Index");
+            }
+            else { 
+            return View(dept);
+            }
+
         }
     }
 }

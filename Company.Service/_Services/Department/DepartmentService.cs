@@ -12,16 +12,21 @@ namespace Company.Service._Services
 {
     public class DepartmentService : IDepartmentService
     {
-        private readonly DepartmentRepository _departmentRepository;
+        private readonly IDepartmentRepository _departmentRepository;
 
-        public DepartmentService(DepartmentRepository departmentRepository)
+        public DepartmentService(IDepartmentRepository departmentRepository)
         {
             _departmentRepository = departmentRepository;
         }
 
         public void Add(Department department)
         {
-            _departmentRepository.Add(department);
+            var MappedDepartments = new Department { 
+            Name = department.Name,
+            Code = department.Code,
+            CreateAt = DateTime.Now,
+            };
+            _departmentRepository.Add(MappedDepartments);
         }
 
         public void Delete(Department department)
