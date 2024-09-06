@@ -17,6 +17,7 @@ namespace Company.Web.Controllers
         public IActionResult Index()
         {
             var departments = _departmentService.GetAll();
+            TempData.Keep("TextTempMessage");
             return View(departments);
         }
 
@@ -28,10 +29,10 @@ namespace Company.Web.Controllers
         [HttpPost]
         public IActionResult Create(Department dept) {
 
-            _departmentService.Add(dept);
             if (ModelState.IsValid)
             {
                 _departmentService.Add(dept);
+                TempData["TextTempMessage"] = "Hello From Employee Index (TempData)";
                 return RedirectToAction("Index");
             }
             else { 
