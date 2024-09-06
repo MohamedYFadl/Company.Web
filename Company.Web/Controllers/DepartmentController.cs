@@ -19,6 +19,7 @@ namespace Company.Web.Controllers
             var departments = _departmentService.GetAll();
             return View(departments);
         }
+
         [HttpGet]
         public IActionResult Create() {
 

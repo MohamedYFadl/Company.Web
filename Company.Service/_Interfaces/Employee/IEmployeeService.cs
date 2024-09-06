@@ -9,7 +9,7 @@ namespace Company.Service._Interfaces
 {
     public interface IEmployeeService
     {
-        Employee GetById(int id);
+        Employee GetById(int? id);
         IEnumerable<Employee> GetAll();
         void Add(Employee employee);
         void Update(Employee employee);

@@ -1,0 +1,50 @@
+﻿@model Employee
+@{
+    ViewData["Title"] = "Update";
+}
+
+<h1>Edit Employee</h1>
+<br />
+<br />
+
+<form asp-action="Update" asp-controller="Employee">
+    <div class="form-group">
+        <label asp-for="@Model.Name" class="col-form-label"></label>
+        <input asp-for="@Model.Name" class="form-control"  />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.HiringDate" class="col-form-label"></label>
+        <input asp-for="@Model.HiringDate" class="form-control" type="date"  />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.PhoneBook" class="col-form-label"></label>
+        <input asp-for="@Model.PhoneBook" class="form-control" type="tel"  />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Salary" class="col-form-label"></label>
+        <input asp-for="@Model.Salary" class="form-control"  />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Email" class="col-form-label"></label>
+        <input asp-for="@Model.Email" class="form-control" type="email"  />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.DepartmentId" class="col-form-label"></label>
+        <input asp-for="@Model.DepartmentId" class="form-control" type="number"  />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.ImageURL" class="col-form-label"></label>
+        <input asp-for="@Model.ImageURL" class="form-control" type="text"  />
+    </div>
+    <div class="form-group mb-3">
+        <label asp-for="@Model.Address" class="col-form-label"></label>
+        <input asp-for="@Model.Address" class="form-control" type="text"  />
+    </div>
+
+    <br />
+    <input type="submit" value="Save" class="btn btn-primary" />
+
+    <a asp-action="Index" class="btn btn-light">Back to List</a>
+
+</form>
+

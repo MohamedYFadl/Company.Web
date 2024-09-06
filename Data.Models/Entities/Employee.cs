@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,11 +13,13 @@ namespace Company.Data.Entities
         public int Age { get; set; }
         public string Address { get; set; }
         public decimal Salary { get; set; }
+        [EmailAddress]
         public string Email { get; set; }
+        [Phone]
         public string PhoneBook { get; set; }
         public DateTime HiringDate { get; set; }
         public string ImageURL { get; set; }
-        public Department Dsepartment { get; set; }
+        public Department Department { get; set; }
         public int? DepartmentId { get; set; }
 
     }

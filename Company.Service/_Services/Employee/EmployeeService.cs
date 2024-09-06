@@ -19,27 +19,51 @@ namespace Company.Service._Services
         }
         public void Add(Employee employee)
         {
-            throw new NotImplementedException();
+            var MappedEmployee = new Employee
+            {
+              Email = employee.Email,
+              Name = employee.Name,
+              Address = employee.Address,
+              Age = Convert.ToInt32((DateTime.Now - employee.HiringDate).TotalDays / 365),
+              HiringDate = employee.HiringDate,
+              Salary = employee.Salary,
+              CreateAt = DateTime.Now,
+              DepartmentId = employee.DepartmentId,
+              ImageURL = employee.ImageURL,
+              PhoneBook = employee.PhoneBook,
+            };
+            _unitOfWork.EmployeeRepository.Add(MappedEmployee);
+            _unitOfWork.Complete();
         }
 
         public void Delete(Employee employee)
         {
-            throw new NotImplementedException();
+            _unitOfWork.EmployeeRepository.Delete(employee);
+            _unitOfWork.Complete();
         }
 
         public IEnumerable<Employee> GetAll()
         {
-            throw new NotImplementedException();
+            var employees = _unitOfWork.EmployeeRepository.GetAll();
+            return employees;
         }
 
-        public Employee GetById(int id)
+        public Employee GetById(int? id)
         {
-            throw new NotImplementedException();
+            if (id is null)
+                return null;
+            var employee = _unitOfWork.EmployeeRepository.GetById(id.Value);
+            if (employee == null)
+                return null;
+
+            return employee;
         }
 
         public void Update(Employee employee)
         {
-            throw new NotImplementedException();
+            _unitOfWork.EmployeeRepository.Update(employee);
+            _unitOfWork.Complete();
+
         }
     }
 }
