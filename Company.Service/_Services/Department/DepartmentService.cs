@@ -12,11 +12,11 @@ namespace Company.Service._Services
 {
     public class DepartmentService : IDepartmentService
     {
-        private readonly IDepartmentRepository _departmentRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public DepartmentService(IDepartmentRepository departmentRepository)
+        public DepartmentService(IUnitOfWork unitOfWork)
         {
-            _departmentRepository = departmentRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public void Add(Department department)
@@ -26,18 +26,21 @@ namespace Company.Service._Services
             Code = department.Code,
             CreateAt = DateTime.Now,
             };
-            _departmentRepository.Add(MappedDepartments);
+            _unitOfWork.DepartmentRepository.Add(MappedDepartments);
+            _unitOfWork.Complete();
+
         }
 
         public void Delete(Department department)
         {
 
-            _departmentRepository.Delete(department);
+            _unitOfWork.DepartmentRepository.Delete(department);
+            _unitOfWork.Complete();
         }
 
         public IEnumerable<Department> GetAll()
         {
-            var departments = _departmentRepository.GetAll();
+            var departments = _unitOfWork.DepartmentRepository.GetAll();
             return departments;
         }
 
@@ -45,7 +48,7 @@ namespace Company.Service._Services
         {
             if (id is null)
                 return null;
-            var department = _departmentRepository.GetById(id.Value);
+            var department = _unitOfWork.DepartmentRepository.GetById(id.Value);
             if (department == null)
                 return null;
 
@@ -54,7 +57,9 @@ namespace Company.Service._Services
 
         public void Update(Department department)
         {
-            _departmentRepository.Update(department);
+            _unitOfWork.DepartmentRepository.Update(department);
+            _unitOfWork.Complete();
+
         }
     }
 }

@@ -11,11 +11,11 @@ namespace Company.Service._Services
 {
     public class EmployeeService : IEmployeeService
     {
-        private readonly IEmployeeRepository _employeeRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public EmployeeService(IEmployeeRepository employeeRepository)
+        public EmployeeService(IUnitOfWork unitOfWork)
         {
-            _employeeRepository = employeeRepository;
+            _unitOfWork = unitOfWork;
         }
         public void Add(Employee employee)
         {
