@@ -19,7 +19,7 @@
         <label class="col-form-label" asp-for="CreateAt"></label>
         <input type="text" asp-for="CreateAt" class="form-control" readonly />
     </div>
-    <input type="submit" value="Edit" class="btn btn-primary" />
+    <input type="submit" value="Edit" class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id" />
     <a asp-action="Index" class="btn btn-light">Back to List</a>
 
 </form>
