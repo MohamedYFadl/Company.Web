@@ -10,7 +10,7 @@ namespace Company.Repository.Interfaces
         //void Add(Employee employee);
         //void Update(Employee employee);
         //void Delete(Employee employee);
-        Employee GetEmployeeByName (string name);
+        IEnumerable<Employee> GetEmployeeByName (string name);
         IEnumerable<Employee> GetAllEmployeesByAddress (string address);
     }
 }

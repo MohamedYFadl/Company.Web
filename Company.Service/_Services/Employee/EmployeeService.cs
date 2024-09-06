@@ -59,6 +59,10 @@ namespace Company.Service._Services
             return employee;
         }
 
+        public IEnumerable<Employee> GetEmployeeByName(string name)
+            => _unitOfWork.EmployeeRepository.GetEmployeeByName(name);
+        
+
         public void Update(Employee employee)
         {
             _unitOfWork.EmployeeRepository.Update(employee);
