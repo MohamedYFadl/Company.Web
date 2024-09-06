@@ -1,4 +1,4 @@
-﻿using Company.Data.Entities;
+﻿ using Company.Data.Entities;
 using Company.Repository.Interfaces;
 using Company.Repository.Repositories;
 using Company.Service._Interfaces;
@@ -40,9 +40,15 @@ namespace Company.Service._Services
             return departments;
         }
 
-        public Department GetById(int id)
+        public Department GetById(int? id)
         {
-           return _departmentRepository.GetById(id);
+            if (id is null)
+                return null;
+            var department = _departmentRepository.GetById(id.Value);
+            if (department == null)
+                return null;
+
+            return department;
         }
 
         public void Update(Department department)
