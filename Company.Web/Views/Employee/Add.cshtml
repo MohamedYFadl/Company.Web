@@ -9,65 +9,65 @@
 @* <div class="mt-5 alert alert-dark">
     <h3>@TempData["TextTempMessage"]</h3>
 </div> *@
-<div class="row">
+@{
+    var departments = new SelectList(ViewBag.Departments,nameof(Department.Id),"Name");
+}
 
-    <div class="col-6 ">
-        <form asp-action="Add" asp-controller="Employee">
-            <div class="form-group">
-                <label asp-for="@Model.Name" class="col-form-label"></label>
-                <input asp-for="@Model.Name" class="form-control" />
-                <span asp-validation-for="@Model.Name" class="text-danger"></span>
-            </div> 
-            <div class="form-group">
-                <label asp-for="@Model.Age" class="col-form-label"></label>
-                <input asp-for="@Model.Age" class="form-control" />
-                <span asp-validation-for="@Model.Age" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="@Model.Address" class="col-form-label"></label>
-                <input asp-for="@Model.Address" class="form-control" type="text" />
-                <span asp-validation-for="@Model.Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="@Model.Salary" class="col-form-label"></label>
-                <input asp-for="@Model.Salary" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="@Model.Email" class="col-form-label"></label>
-                <input asp-for="@Model.Email" class="form-control" type="email" />
-                <span asp-validation-for="@Model.Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="@Model.HiringDate" class="col-form-label"></label>
-                <input asp-for="@Model.HiringDate" class="form-control" type="date" />
-                <span asp-validation-for="@Model.HiringDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="@Model.PhoneBook" class="col-form-label"></label>
-                <input asp-for="@Model.PhoneBook" class="form-control"  type="tel"/>
-                <span asp-validation-for="@Model.PhoneBook" class="text-danger"></span>
-            </div>
-@*             <div class="form-group">
-                <label asp-for="Department" class="col-form-label"></label>
-                <select class="form-control" asp-items="@Departments" asp-for="DepartmentId">
-                    <option value="@null">--Select Department</option>
-
-                </select>
-            </div> *@
-   
-@*             <div class="form-group">
-                <label asp-for="@Model.ImageURL" class="col-form-label"></label>
-            <input asp-for="@Model.ImageURL" class="form-control-file" type="file"/>
-            </div>   *@ 
-
-
-            <br />
-            <input type="submit" value="Add" class="btn btn-primary" />
-            <a asp-action="Index" class="btn btn-light">Back to List</a>
-
-        </form>
+<form asp-action="Add" asp-controller="Employee">
+    <div class="form-group">
+        <label asp-for="@Model.Name" class="col-form-label"></label>
+        <input asp-for="@Model.Name" class="form-control" />
+        <span asp-validation-for="@Model.Name" class="text-danger"></span>
     </div>
-</div>
+    <div class="form-group">
+        <label asp-for="@Model.Age" class="col-form-label"></label>
+        <input asp-for="@Model.Age" class="form-control" />
+        <span asp-validation-for="@Model.Age" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Address" class="col-form-label"></label>
+        <input asp-for="@Model.Address" class="form-control" type="text" />
+        <span asp-validation-for="@Model.Address" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Salary" class="col-form-label"></label>
+        <input asp-for="@Model.Salary" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Email" class="col-form-label"></label>
+        <input asp-for="@Model.Email" class="form-control" type="email" />
+        <span asp-validation-for="@Model.Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.HiringDate" class="col-form-label"></label>
+        <input asp-for="@Model.HiringDate" class="form-control" type="date" />
+        <span asp-validation-for="@Model.HiringDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.PhoneBook" class="col-form-label"></label>
+        <input asp-for="@Model.PhoneBook" class="form-control" type="tel" />
+        <span asp-validation-for="@Model.PhoneBook" class="text-danger"></span>
+    </div>
+                <div class="form-group">
+    <label asp-for="Department" class="col-form-label"></label>
+    <select class="form-control" asp-items="@departments" asp-for="DepartmentId">
+    <option value="@null">--Select Department</option>
+
+    </select>
+    </div>
+
+    @*             <div class="form-group">
+    <label asp-for="@Model.ImageURL" class="col-form-label"></label>
+    <input asp-for="@Model.ImageURL" class="form-control-file" type="file"/>
+    </div>   *@
+
+
+    <br />
+    <input type="submit" value="Add" class="btn btn-primary" />
+    <a asp-action="Index" class="btn btn-light">Back to List</a>
+
+</form>
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

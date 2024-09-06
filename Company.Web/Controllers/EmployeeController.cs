@@ -35,8 +35,8 @@ namespace Company.Web.Controllers
         }
         public IActionResult Add()
         {
-            var department = _departmentService.GetAll();
-            return View(department);
+            ViewBag.Departments = _departmentService.GetAll();
+            return View();
         }
         [HttpPost]
         public IActionResult Add(Employee employee)
