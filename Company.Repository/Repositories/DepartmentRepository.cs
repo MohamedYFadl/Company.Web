@@ -1,9 +1,10 @@
 ﻿using Company.Data.Contexts;
 using Company.Data.Entities;
 using Company.Repository.Interfaces;
+using Company.Repository.Repositories;
 
 
-namespace Company.Repository.Repositories
+namespace Company.Repository
 {
     public class DepartmentRepository :GenericRepository<Department>, IDepartmentRepository
     {
