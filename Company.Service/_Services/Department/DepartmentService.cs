@@ -31,6 +31,7 @@ namespace Company.Service._Services
 
         public void Delete(Department department)
         {
+
             _departmentRepository.Delete(department);
         }
 
