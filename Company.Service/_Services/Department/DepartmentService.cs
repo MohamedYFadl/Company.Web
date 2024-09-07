@@ -1,13 +1,6 @@
-﻿ using Company.Data.Entities;
-using Company.Repository.Interfaces;
-using Company.Repository.Repositories;
+﻿using Company.Repository.Interfaces;
 using Company.Service._Interfaces;
 using Company.Service._Services.Department.Dto;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Company.Service._Services
 {

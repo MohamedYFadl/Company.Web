@@ -1,4 +1,5 @@
 ﻿using Company.Service._Services.Department.Dto;
+using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
 namespace Company.Service._Services.Employee.Dto
@@ -15,6 +16,7 @@ namespace Company.Service._Services.Employee.Dto
         [Phone]
         public string PhoneBook { get; set; }
         public DateTime HiringDate { get; set; }
+        public IFormFile Image { get; set; }
         public string ImageURL { get; set; }
         public DepartmentDpo Department { get; set; }
         public DateTime CreateAt { get; set; }

@@ -3,6 +3,7 @@ using Company.Data.Entities;
 using Company.Repository.Interfaces;
 using Company.Service._Interfaces;
 using Company.Service._Services.Employee.Dto;
+using Company.Service.Helper;
 
 
 namespace Company.Service
@@ -32,6 +33,7 @@ namespace Company.Service
             //  ImageURL = employeeDto.ImageURL,
             //  PhoneBook = employeeDto.PhoneBook,
             //};
+            employeeDto.ImageURL = DocumentSettings.UploadFile(employeeDto.Image, "Images");
             Employee employee = _mapper.Map<Employee>(employeeDto);
             //Or => Employee employee = _mapper.Map<EmployeeDTO,Employee>(employeeDto);
 
