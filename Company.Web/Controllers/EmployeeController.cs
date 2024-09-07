@@ -1,6 +1,8 @@
 ﻿using Company.Data.Entities;
 using Company.Service._Interfaces;
 using Company.Service._Services;
+using Company.Service._Services.Employee.Dto;
+using Company.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Company.Web.Controllers
@@ -17,11 +19,11 @@ namespace Company.Web.Controllers
         }
         public IActionResult Index(string SearchInput)
         {
-            ViewBag.Message = "Hello From Employee Index (ViewBag)";
-            ViewData["TextMessage"] = "Hello From Employee Index (ViewData)";
-            TempData["TextTempMessage"] = "Hello From Employee Index (TempData)";
+            //ViewBag.Message = "Hello From Employee Index (ViewBag)";
+            //ViewData["TextMessage"] = "Hello From Employee Index (ViewData)";
+            //TempData["TextTempMessage"] = "Hello From Employee Index (TempData)";
 
-            IEnumerable<Employee> employees = new List<Employee>();
+            IEnumerable<EmployeeDTO> employees = new List<EmployeeDTO>();
             if (string.IsNullOrEmpty(SearchInput))
                 employees = _employeeService.GetAll();
 
@@ -39,7 +41,7 @@ namespace Company.Web.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Add(Employee employee)
+        public IActionResult Add(EmployeeDTO employee)
         {
 
 
@@ -70,7 +72,7 @@ namespace Company.Web.Controllers
             return Details(id, "Update");
         }
         [HttpPost]
-        public IActionResult Update(int? id, Employee employee)
+        public IActionResult Update(int? id, EmployeeDTO employee)
         {
             if (employee.Id != id.Value)
                 return RedirectToAction("NotFoundPage","Home",null);

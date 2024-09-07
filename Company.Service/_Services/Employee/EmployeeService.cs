@@ -1,13 +1,10 @@
 ﻿using Company.Data.Entities;
 using Company.Repository.Interfaces;
 using Company.Service._Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Company.Service._Services.Employee.Dto;
 
-namespace Company.Service._Services
+
+namespace Company.Service
 {
     public class EmployeeService : IEmployeeService
     {
@@ -17,55 +14,126 @@ namespace Company.Service._Services
         {
             _unitOfWork = unitOfWork;
         }
-        public void Add(Employee employee)
+        public void Add(EmployeeDTO employeeDto)
         {
-            var MappedEmployee = new Employee
+            //Manual Mapping
+            Employee MappedEmployee = new Employee
             {
-              Email = employee.Email,
-              Name = employee.Name,
-              Address = employee.Address,
-              Age = Convert.ToInt32((DateTime.Now - employee.HiringDate).TotalDays / 365),
-              HiringDate = employee.HiringDate,
-              Salary = employee.Salary,
-              CreateAt = DateTime.Now,
-              DepartmentId = employee.DepartmentId,
-              ImageURL = employee.ImageURL,
-              PhoneBook = employee.PhoneBook,
+              Address = employeeDto.Address,
+              Age = Convert.ToInt32((DateTime.Now - employeeDto.HiringDate).TotalDays / 365),
+              DepartmentId = employeeDto.DepartmentId,
+              Email = employeeDto.Email,
+              HiringDate = employeeDto.HiringDate,
+              Name = employeeDto.Name,
+              Salary = employeeDto.Salary,
+              ImageURL = employeeDto.ImageURL,
+              PhoneBook = employeeDto.PhoneBook,
             };
             _unitOfWork.EmployeeRepository.Add(MappedEmployee);
             _unitOfWork.Complete();
         }
 
-        public void Delete(Employee employee)
+        public void Delete(EmployeeDTO employeeDto)
         {
-            _unitOfWork.EmployeeRepository.Delete(employee);
+            Employee MappedEmployee = new Employee
+            {
+                Address = employeeDto.Address,
+                Age = Convert.ToInt32((DateTime.Now - employeeDto.HiringDate).TotalDays / 365),
+                DepartmentId = employeeDto.DepartmentId,
+                Email = employeeDto.Email,
+                HiringDate = employeeDto.HiringDate,
+                Name = employeeDto.Name,
+                Salary = employeeDto.Salary,
+                ImageURL = employeeDto.ImageURL,
+                PhoneBook = employeeDto.PhoneBook,
+            };
+            _unitOfWork.EmployeeRepository.Delete(MappedEmployee);
             _unitOfWork.Complete();
         }
 
-        public IEnumerable<Employee> GetAll()
+        public IEnumerable<EmployeeDTO> GetAll()
         {
             var employees = _unitOfWork.EmployeeRepository.GetAll();
-            return employees;
+            var MappedEmployees = employees.Select(x => new EmployeeDTO
+            {
+                Address = x.Address,
+                DepartmentId = x.DepartmentId,
+                Email = x.Email,
+                HiringDate = x.HiringDate,
+                Name = x.Name,
+                Salary = x.Salary,
+                ImageURL = x.ImageURL,
+                PhoneBook = x.PhoneBook,
+                Age = Convert.ToInt32((DateTime.Now - x.HiringDate).TotalDays / 365),
+                Id = x.Id,
+                CreateAt = x.CreateAt,
+
+
+            });
+            return MappedEmployees; 
         }
 
-        public Employee GetById(int? id)
+        public EmployeeDTO GetById(int? id)
         {
             if (id is null)
                 return null;
             var employee = _unitOfWork.EmployeeRepository.GetById(id.Value);
             if (employee == null)
                 return null;
-
-            return employee;
+            EmployeeDTO employeeDto = new EmployeeDTO
+            {
+                Address = employee.Address,
+                Age = Convert.ToInt32((DateTime.Now - employee.HiringDate).TotalDays / 365),
+                DepartmentId = employee.DepartmentId,
+                Email = employee.Email,
+                HiringDate = employee.HiringDate,
+                Name = employee.Name,
+                Salary = employee.Salary,
+                ImageURL = employee.ImageURL,
+                PhoneBook = employee.PhoneBook,
+            };
+            return employeeDto;
         }
 
-        public IEnumerable<Employee> GetEmployeeByName(string name)
-            => _unitOfWork.EmployeeRepository.GetEmployeeByName(name);
+        public IEnumerable<EmployeeDTO> GetEmployeeByName(string name)
+        {
+
+            var employees =  _unitOfWork.EmployeeRepository.GetEmployeeByName(name);
+            var MappedEmployees = employees.Select(x => new EmployeeDTO
+            {
+                Address = x.Address,
+                DepartmentId = x.DepartmentId,
+                Email = x.Email,
+                HiringDate = x.HiringDate,
+                Name = x.Name,
+                Salary = x.Salary,
+                ImageURL = x.ImageURL,
+                PhoneBook = x.PhoneBook,
+                Age = Convert.ToInt32((DateTime.Now - x.HiringDate).TotalDays / 365),
+                Id = x.Id,
+                CreateAt = x.CreateAt,
+
+
+            });
+            return MappedEmployees;
+        }
         
 
-        public void Update(Employee employee)
+        public void Update(EmployeeDTO employeeDto)
         {
-            _unitOfWork.EmployeeRepository.Update(employee);
+            //Employee MappedEmployee = new Employee
+            //{
+            //    Address = employeeDto.Address,
+            //    Age = Convert.ToInt32((DateTime.Now - employeeDto.HiringDate).TotalDays / 365),
+            //    DepartmentId = employeeDto.DepartmentId,
+            //    Email = employeeDto.Email,
+            //    HiringDate = employeeDto.HiringDate,
+            //    Name = employeeDto.Name,
+            //    Salary = employeeDto.Salary,
+            //    ImageURL = employeeDto.ImageURL,
+            //    PhoneBook = employeeDto.PhoneBook,
+            //};
+            //_unitOfWork.EmployeeRepository.Update(MappedEmployee);
             _unitOfWork.Complete();
 
         }

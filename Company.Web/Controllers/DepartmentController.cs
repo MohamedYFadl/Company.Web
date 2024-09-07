@@ -1,6 +1,7 @@
 ﻿using Company.Data.Entities;
 using Company.Repository.Interfaces;
 using Company.Service._Interfaces;
+using Company.Service._Services.Department.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
@@ -27,7 +28,7 @@ namespace Company.Web.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Department dept) {
+        public IActionResult Create(DepartmentDpo dept) {
 
             if (ModelState.IsValid)
             {
@@ -53,7 +54,7 @@ namespace Company.Web.Controllers
             return Details(id,"Update");
         }
         [HttpPost]
-        public IActionResult Update(int? id,Department department) {
+        public IActionResult Update(int? id, DepartmentDpo department) {
             if (department.Id != id.Value)
                 return RedirectToAction("NotFoundPage", null, "Home");
 
