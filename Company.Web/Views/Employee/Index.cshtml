@@ -11,7 +11,7 @@
 <div class="row justify-content-center align-item-center mt-5">
     <form class="row col-8 offset-2" asp-action="Index">
         <div class="col-8">
-            <input type="text" class="form-control" name="SearchInput" placeholder="Search By Name .." />
+            <input type="text" class="form-control" name="SearchInput" placeholder="Search By Name,PhoneBook or Email" />
         </div>
         <div class="col-4">
             <input type="submit" class="btn btn-success " value="Search" />
@@ -34,6 +34,7 @@
         <thead>
             <tr>
                 <th>@Html.DisplayNameFor(E => E.Name)</th>
+                <th>@Html.DisplayNameFor(E => E.Image)</th>
                 <th>@Html.DisplayNameFor(E => E.Age)</th>
                 <th>@Html.DisplayNameFor(E => E.Address)</th>
                 <th>@Html.DisplayNameFor(E => E.Salary)</th>
@@ -51,6 +52,7 @@
             {
                 <tr>
                     <td> @employee.Name</td>
+                    <td> <img src="~/Files/Images/@employee.ImageURL" height="40" width="40" alt="EmployeeImage"/></td>
                     <td> @employee.Age</td>
                     <td> @employee.Address</td>
                     <td> @Html.DisplayFor(M => employee.Salary)</td>

@@ -44,17 +44,24 @@ namespace Company.Web.Controllers
         public IActionResult Add(EmployeeDTO employee)
         {
 
-
-            _employeeService.Add(employee);
-            if (ModelState.IsValid)
+            try
             {
-                _employeeService.Add(employee);
-                return RedirectToAction("Index","Employee",null);
+                if (ModelState.IsValid)
+                {
+                    _employeeService.Add(employee);
+                    return RedirectToAction("Index", "Employee", null);
+                }
+                else
+                {
+                    return View(employee);
+                }
             }
-            else
+            catch (Exception ex)
             {
+
                 return View(employee);
             }
+            
 
         }
         public IActionResult Details(int? id, string viewName = "Details")

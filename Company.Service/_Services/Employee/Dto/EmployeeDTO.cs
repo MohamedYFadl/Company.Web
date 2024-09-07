@@ -17,8 +17,8 @@ namespace Company.Service._Services.Employee.Dto
         public string PhoneBook { get; set; }
         public DateTime HiringDate { get; set; }
         public IFormFile Image { get; set; }
-        public string ImageURL { get; set; }
-        public DepartmentDpo Department { get; set; }
+        public string? ImageURL { get; set; }
+        public DepartmentDpo? Department { get; set; }
         public DateTime CreateAt { get; set; }
         public int? DepartmentId { get; set; }
     }

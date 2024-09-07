@@ -23,7 +23,7 @@ namespace Company.Service.Helper
 
             file.CopyTo(fileStream);
 
-            return filePath;
+            return fileName;
         }
     }
 }
