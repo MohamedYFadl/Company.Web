@@ -1,6 +1,7 @@
 ﻿using Company.Data.Entities;
 using Company.Repository.Interfaces;
 using Company.Service._Interfaces;
+using Company.Service._Services.Department.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
@@ -17,6 +18,7 @@ namespace Company.Web.Controllers
         public IActionResult Index()
         {
             var departments = _departmentService.GetAll();
+            //TempData.Keep("TextTempMessage");
             return View(departments);
         }
 
@@ -26,12 +28,12 @@ namespace Company.Web.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Department dept) {
+        public IActionResult Create(DepartmentDpo dept) {
 
-            _departmentService.Add(dept);
             if (ModelState.IsValid)
             {
                 _departmentService.Add(dept);
+                //TempData["TextTempMessage"] = "Hello From Employee Index (TempData)";
                 return RedirectToAction("Index");
             }
             else { 
@@ -52,7 +54,7 @@ namespace Company.Web.Controllers
             return Details(id,"Update");
         }
         [HttpPost]
-        public IActionResult Update(int? id,Department department) {
+        public IActionResult Update(int? id, DepartmentDpo department) {
             if (department.Id != id.Value)
                 return RedirectToAction("NotFoundPage", null, "Home");
 

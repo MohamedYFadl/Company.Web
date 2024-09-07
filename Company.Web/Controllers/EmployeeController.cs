@@ -1,6 +1,8 @@
 ﻿using Company.Data.Entities;
 using Company.Service._Interfaces;
 using Company.Service._Services;
+using Company.Service._Services.Employee.Dto;
+using Company.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Company.Web.Controllers
@@ -8,34 +10,58 @@ namespace Company.Web.Controllers
     public class EmployeeController : Controller
     {
         private readonly IEmployeeService _employeeService;
+        private readonly IDepartmentService _departmentService;
 
-        public EmployeeController(IEmployeeService employeeService)
+        public EmployeeController(IEmployeeService employeeService,IDepartmentService departmentService)
         {
             _employeeService = employeeService;
+            _departmentService = departmentService;
         }
-        public IActionResult Index()
+        public IActionResult Index(string SearchInput)
         {
-            var Employees = _employeeService.GetAll();
-            return View(Employees);
+            //ViewBag.Message = "Hello From Employee Index (ViewBag)";
+            //ViewData["TextMessage"] = "Hello From Employee Index (ViewData)";
+            //TempData["TextTempMessage"] = "Hello From Employee Index (TempData)";
+
+            IEnumerable<EmployeeDTO> employees = new List<EmployeeDTO>();
+            if (string.IsNullOrEmpty(SearchInput))
+                employees = _employeeService.GetAll();
+
+
+            else
+                employees = _employeeService.GetEmployeeByName(SearchInput);
+                
+            return View(employees);
+
+            
         }
         public IActionResult Add()
         {
+            ViewBag.Departments = _departmentService.GetAll();
             return View();
         }
         [HttpPost]
-        public IActionResult Add(Employee employee)
+        public IActionResult Add(EmployeeDTO employee)
         {
 
-            _employeeService.Add(employee);
-            if (ModelState.IsValid)
+            try
             {
-                _employeeService.Add(employee);
-                return RedirectToAction("Index","Employee",null);
+                if (ModelState.IsValid)
+                {
+                    _employeeService.Add(employee);
+                    return RedirectToAction("Index", "Employee", null);
+                }
+                else
+                {
+                    return View(employee);
+                }
             }
-            else
+            catch (Exception ex)
             {
+
                 return View(employee);
             }
+            
 
         }
         public IActionResult Details(int? id, string viewName = "Details")
@@ -53,7 +79,7 @@ namespace Company.Web.Controllers
             return Details(id, "Update");
         }
         [HttpPost]
-        public IActionResult Update(int? id, Employee employee)
+        public IActionResult Update(int? id, EmployeeDTO employee)
         {
             if (employee.Id != id.Value)
                 return RedirectToAction("NotFoundPage","Home",null);
