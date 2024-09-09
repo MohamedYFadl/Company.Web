@@ -40,11 +40,12 @@ namespace Company.Web
                 config.Password.RequireNonAlphanumeric = true;
                 config.User.RequireUniqueEmail = true;
                 config.Lockout.AllowedForNewUsers = true;
-                config.Lockout.MaxFailedAccessAttempts = 30;
+                config.Lockout.MaxFailedAccessAttempts = 3;
                 config.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromHours(1);
 
 
             }).AddEntityFrameworkStores<CompanyDbContext>().AddDefaultTokenProviders();
+
             builder.Services.ConfigureApplicationCookie(option => {
                 option.Cookie.HttpOnly = true;
                 option.ExpireTimeSpan = TimeSpan.FromMinutes(60);
