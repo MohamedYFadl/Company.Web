@@ -72,10 +72,31 @@ namespace Company.Web.Controllers
         public new async Task<IActionResult> SignOut() {
         await _signInManager.SignOutAsync();
 
-            return RedirectToAction(nameof(Login    ));
+            return RedirectToAction(nameof(Login));
         
         
         }
+		#endregion
+		#region Forget Password
+
+		public IActionResult ForgetPassword()
+		{
+
+			return View();
+		}
+		//[HttpPost]
+        //public async Task<IActionResult> ForgetPassword(ForgetPasswordModel input) {
+        //    if (ModelState.IsValid) {
+        //        var user = await _userManager.FindByEmailAsync(input.Email);
+        //        if (user is not null) {
+        //        var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+        //            var url = Url.Action("ResetPassword","Account",new { email= input.Email,Token= token},Request.Scheme);
+                
+        //        }
+            
+        //    }
+        
+        //}
         #endregion
     }
 }
