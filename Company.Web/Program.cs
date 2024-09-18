@@ -54,7 +54,7 @@ namespace Company.Web
                 option.LoginPath = "/Account/Login";
                 option.LoginPath = "/Account/Logout";
                 option.AccessDeniedPath  = "/Account/AccessDenied";
-                option.Cookie.Name = "admin Cookies";
+                option.Cookie.Name = "adminCookies";
                 option.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 option.Cookie.SameSite = SameSiteMode.Strict;
             
