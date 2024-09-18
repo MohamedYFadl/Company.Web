@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewData["Title"] = "SignUp";
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+}
+
+
+<form>
+	<label for="chk" aria-hidden="true">Sign up</label>
+	<input type="text" name="FirstName" placeholder="First Name" required="">
+	<input type="text" name="LastName" placeholder="Last Name" required="">
+	<input type="email" name="Email" placeholder="Email" required="">
+	<input type="password" name="Password" placeholder="Password" required="">
+	<input type="password" name="ConfirmPassword" placeholder="ConfirmPassword" required="">
+	<button>Sign up</button>
+</form>

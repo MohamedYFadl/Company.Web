@@ -1,10 +1,12 @@
 using Company.Data.Contexts;
+using Company.Data.Entities;
 using Company.Repository.Interfaces;
 using Company.Repository.Repositories;
 using Company.Service;
 using Company.Service._Interfaces;
 using Company.Service._Services;
 using Company.Service.Mapping;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Company.Web
@@ -26,8 +28,37 @@ namespace Company.Web
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IDepartmentService, DepartmentService>();
             builder.Services.AddScoped<IEmployeeService, EmployeeService>();
-            builder.Services.AddAutoMapper(x=>x.AddProfile(new EmployeeProfile()));
-            builder.Services.AddAutoMapper(x=>x.AddProfile(new DepartmentProfile()));
+            builder.Services.AddAutoMapper(x => x.AddProfile(new EmployeeProfile()));
+            builder.Services.AddAutoMapper(x => x.AddProfile(new DepartmentProfile()));
+
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(config =>
+            {
+                config.Password.RequiredUniqueChars = 2;
+                config.Password.RequireDigit = true;
+                config.Password.RequireLowercase = true;
+                config.Password.RequireUppercase = true;
+                config.Password.RequireNonAlphanumeric = true;
+                config.Password.RequiredLength = 6;    
+                config.User.RequireUniqueEmail = true;
+                config.Lockout.AllowedForNewUsers = true;
+                config.Lockout.MaxFailedAccessAttempts = 3;
+                config.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromHours(1);
+
+
+            }).AddEntityFrameworkStores<CompanyDbContext>().AddDefaultTokenProviders();
+
+            builder.Services.ConfigureApplicationCookie(option => {
+                option.Cookie.HttpOnly = true;
+                option.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                option.SlidingExpiration = true;
+                option.LoginPath = "/Account/Login";
+                option.LoginPath = "/Account/Logout";
+                option.AccessDeniedPath  = "/Account/AccessDenied";
+                option.Cookie.Name = "admin Cookies";
+                option.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                option.Cookie.SameSite = SameSiteMode.Strict;
+            
+            });
 
             var app = builder.Build();
 
@@ -45,6 +76,7 @@ namespace Company.Web
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.MapControllerRoute(
                 name: "default",
