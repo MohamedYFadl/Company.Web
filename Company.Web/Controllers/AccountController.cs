@@ -67,7 +67,15 @@ namespace Company.Web.Controllers
 
 
 		}
-		#endregion
+        #endregion
+        #region SignOut
+        public new async Task<IActionResult> SignOut() {
+        await _signInManager.SignOutAsync();
 
-	}
+            return RedirectToAction(nameof(Login    ));
+        
+        
+        }
+        #endregion
+    }
 }
