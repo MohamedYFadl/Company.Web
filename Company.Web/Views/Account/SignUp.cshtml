@@ -1,16 +1,36 @@
-﻿
+﻿@model SignUpViewModel
 @{
     ViewData["Title"] = "SignUp";
     Layout = "~/Views/Shared/_AuthLayout.cshtml";
 }
+	<h1> SignUp Form</h1>
+	<div class="main-agileinfo">
+		<div class="agileits-top">
+			<form asp-action="SignUp">
+			<input class="text" type="text" placeholder="FirstName"  asp-for="FirstName">
+				<div asp-validation-for="FirstName"></div>
 
+			<input class="text w3lpass " type="text" asp-for="LastName" placeholder="LastName">
+				<div asp-validation-for="LastName"></div>
 
-<form>
-	<label for="chk" aria-hidden="true">Sign up</label>
-	<input type="text" name="FirstName" placeholder="First Name" required="">
-	<input type="text" name="LastName" placeholder="Last Name" required="">
-	<input type="email" name="Email" placeholder="Email" required="">
-	<input type="password" name="Password" placeholder="Password" required="">
-	<input type="password" name="ConfirmPassword" placeholder="ConfirmPassword" required="">
-	<button>Sign up</button>
-</form>
+			<input type="email" asp-for="Email" placeholder="Email" class="email text">
+				<div asp-validation-for="Email"></div>
+
+				<input type="password" asp-for="Password" placeholder="Password"   class="text">
+				<div asp-validation-for="Password"></div>
+
+			<input class="text w3lpass" type="password" asp-for="ConfirmPassword" placeholder="Confirm Password">
+				<div asp-validation-for="ConfirmPassword"></div>
+				<div class="wthree-text">
+					<label class="anim">
+						<input type="checkbox" class="checkbox"  >
+						<span>I Agree To The Terms & Conditions</span>
+					</label>
+					<div class="clear"> </div>
+				</div>
+				<div asp-validation-summary="All" class="text-danger"></div>
+				<input type="submit" value="SignUp">
+			</form>
+			<p>Don't have an Account? <a asp-action="Login"> Login Now!</a></p>
+		</div>
+	</div>

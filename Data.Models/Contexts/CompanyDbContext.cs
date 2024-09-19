@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Company.Data.Contexts
 {
-    public class CompanyDbContext : IdentityUserContext<ApplicationUser>
+    public class CompanyDbContext : IdentityDbContext<ApplicationUser>
     {
         public CompanyDbContext(DbContextOptions<CompanyDbContext> options) : base(options)
         {
