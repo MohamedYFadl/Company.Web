@@ -4,7 +4,6 @@ using Company.Repository.Interfaces;
 using Company.Repository.Repositories;
 using Company.Service;
 using Company.Service._Interfaces;
-using Company.Service._Services;
 using Company.Service.Mapping;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -52,7 +51,7 @@ namespace Company.Web
                 option.ExpireTimeSpan = TimeSpan.FromMinutes(60);
                 option.SlidingExpiration = true;
                 option.LoginPath = "/Account/Login";
-                option.LoginPath = "/Account/Logout";
+                option.LogoutPath = "/Account/Logout";
                 option.AccessDeniedPath  = "/Account/AccessDenied";
                 option.Cookie.Name = "adminCookies";
                 option.Cookie.SecurePolicy = CookieSecurePolicy.Always;
@@ -75,8 +74,8 @@ namespace Company.Web
 
             app.UseRouting();
 
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",

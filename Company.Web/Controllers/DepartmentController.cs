@@ -2,11 +2,14 @@
 using Company.Repository.Interfaces;
 using Company.Service._Interfaces;
 using Company.Service._Services.Department.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Company.Web.Controllers
 {
+    [Authorize]
+
     public class DepartmentController : Controller
     {
         private readonly IDepartmentService _departmentService;
