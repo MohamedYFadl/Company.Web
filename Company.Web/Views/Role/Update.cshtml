@@ -13,7 +13,7 @@
             <input hidden asp-for="Id" />
             <partial name="PartialView/CreateEditPartialView" model="@Model" />
             <div class="my-3">
-                <a asp-action="AddOrRemoveUsers" asp-controller="Role" asp-route-roleid="@Model.Id">Add or Remove Users</a>
+                <a asp-action="AddOrRemoveUsers" asp-controller="Role" asp-route-roleid="@Model.Id" class="btn btn-primary">Add or Remove Users</a>
             </div>
             <input type="submit" value="Save" class="btn btn-primary" />
             <a asp-action="Index" class="btn btn-light"> Back to List </a>

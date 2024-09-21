@@ -1,4 +1,5 @@
-﻿using Company.Web.Models;
+﻿using Company.Data.Entities;
+using Company.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,11 +10,13 @@ namespace Company.Web.Controllers
     {
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ILogger<RoleController> _logger;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public RoleController(RoleManager<IdentityRole> roleManager,ILogger<RoleController> logger)
+        public RoleController(RoleManager<IdentityRole> roleManager,ILogger<RoleController> logger, UserManager<ApplicationUser> userManager)
         {
             _roleManager = roleManager;
             _logger = logger;
+            _userManager = userManager;
         }
         public async Task<IActionResult> Index()
         {
@@ -132,6 +135,34 @@ namespace Company.Web.Controllers
                 _logger.LogError(ex.Message);
             }
             return RedirectToAction("Index");
+        }
+        public async Task<IActionResult> AddOrRemoveUsers(string roleId) {
+
+            var role = await _roleManager.FindByIdAsync(roleId);
+            if (role is null)
+                return NotFound();
+
+            var users = await _userManager.Users.ToListAsync();
+            var usersInRole = new List<UserInRoleViewModel>();
+            foreach (var user in users)
+            {
+                var userInRole = new UserInRoleViewModel
+                {
+                    UserId= user.Id,
+                    UserName = user.UserName
+                };
+                if (await _userManager.IsInRoleAsync(user, role.Name))
+                    userInRole.IsSeleceted = true;
+
+                else
+                    userInRole.IsSeleceted = false;
+
+                usersInRole.Add(userInRole);
+
+            }
+            
+            return View(usersInRole);
+
         }
     }
 }
